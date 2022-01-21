@@ -16,5 +16,8 @@ Habilidades
 -
 (EF03CI06) Comparar alguns animais e organizar grupos com base em características externas comuns (presença de penas, pelos, escamas, bico, garras, antenas, patas etc.)
 
+Links do jogo
+-
+[Link 1 (Replit)](https://LoP-Scince-Line.educhior.repl.co)
 
-[Link do jogo](https://LoP-Scince-Line.educhior.repl.co).
+[Link 2 (GitHub)](https://educhior.github.io/LoP---Scince-Line/)
