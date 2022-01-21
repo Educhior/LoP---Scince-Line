@@ -17,4 +17,4 @@ Habilidades
 (EF03CI06) Comparar alguns animais e organizar grupos com base em características externas comuns (presença de penas, pelos, escamas, bico, garras, antenas, patas etc.)
 
 
-[Link do jogo](https://lop-science-line.educhior.repl.co/).
+[Link do jogo](https://LoP-Scince-Line.educhior.repl.co).
