@@ -3,15 +3,17 @@ var tela = 0;
 var largura = 150;
 var altura = 40;
 
-var som = 1;
-var versao = 0.10;
+var versao = 0.2;
 var ano = 2022;
 
 var itensCarregado = 0;
 var carregou = false;
-var items = 19;
+var items = 20;
 
+var fase = 0;
+var vida = 3;
 
+// ----------------------- Verificado de Carregamento ---------------------
 function carregando() {
   itensCarregado++
   console.log("carregou..." + itensCarregado);
@@ -20,10 +22,12 @@ function carregando() {
   }
 }
 
+// ----------------------- Escala da Tela ---------------------
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
+// ----------------------- Setup  ---------------------
 function setup() {
 
   back_yellow = loadImage('assets/imagens/Reply.png', carregando);
@@ -32,15 +36,16 @@ function setup() {
   volume_up = loadImage('assets/imagens/Volume-up.png', carregando);
   sem_imagem = loadImage('assets/imagens/no-photo.png', carregando);
   bg_menu = loadImage('assets/imagens/bg_menu.png', carregando);
-  edu_imag = loadImage ('assets/imagens/edu.png', carregando);
+  edu_imag = loadImage('assets/imagens/edu.png', carregando);
+  coracao = loadImage('assets/imagens/heart-png.png', carregando)
 
-  cachorro = loadImage ('assets/imagens/img_fases/cachorro.jpg', carregando);
-  borboleta = loadImage ('assets/imagens/img_fases/borboleta.jpg', carregando);
-  cavalo = loadImage ('assets/imagens/img_fases/cavalo.jpg', carregando);
-  coruja = loadImage ('assets/imagens/img_fases/coruja.jpg', carregando);
-  gato = loadImage ('assets/imagens/img_fases/gato.jpg', carregando);
-  piguim = loadImage ('assets/imagens/img_fases/piguim.jpg', carregando);
-  tigre = loadImage ('assets/imagens/img_fases/tigre.jpg', carregando);
+  cachorro = loadImage('assets/imagens/img_fases/cachorro.jpg', carregando);
+  borboleta = loadImage('assets/imagens/img_fases/borboleta.jpg', carregando);
+  cavalo = loadImage('assets/imagens/img_fases/cavalo.jpg', carregando);
+  coruja = loadImage('assets/imagens/img_fases/coruja.jpg', carregando);
+  gato = loadImage('assets/imagens/img_fases/gato.jpg', carregando);
+  pinguim = loadImage('assets/imagens/img_fases/piguim.jpg', carregando);
+  tigre = loadImage('assets/imagens/img_fases/tigre.jpg', carregando);
 
   audio = createAudio('assets/audio/UnicornHeads.mp3', carregando);
 
@@ -52,6 +57,8 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
 }
+
+// ----------------------- Updadte ---------------------
 
 function draw() {
   if (carregou === true) {
@@ -68,16 +75,24 @@ function draw() {
     } else if (tela == 2) {
       Jogo();
     } else if (tela == 3) {
-      Configuracoes();
+      Errou();
+    } else if (tela == 31) {
+      Acertou();
     } else if (tela == 4) {
       Informacoes();
     } else if (tela == 5) {
       Sobre();
-    } else {
+    } else if (tela == 100) {
+      Fim();
+    } else if (tela == 101) {
+      Fim2();
+    }else {
       desenvolvimento();
     }
   } else {
     background(0);
+
+    // ----------------------- Barra de carregamento ---------------------
 
     noStroke();
     fill(105, 105, 105);
@@ -91,13 +106,14 @@ function draw() {
     drawingContext.shadowColor = color(127, 188, 65, 255);
     rect((windowWidth / 2) - 300, windowHeight / 2, itensCarregado * (600 / items), 5, 50);
 
+    // ----------------------- Texto de carregamento ---------------------
     drawingContext.shadowBlur = 0;
     drawingContext.shadowColor = 0;
     textAlign(RIGHT);
     textFont(font_padrao);
     fill(255);
     textSize(20);
-    text("Carregando . . .", (windowWidth / 2) - 150, (windowHeight / 2) - 15);
+    text("Carregando . . .    " + (itensCarregado * (100 / items)).toFixed(1) + "%", (windowWidth / 2) - 100, (windowHeight / 2) - 15);
   }
 
 }
@@ -108,6 +124,8 @@ function draw() {
 function Menu1() {
   imageMode(CORNER);
   background(24, 24, 24);
+
+  // ----------------------- Fundo Interativo ---------------------
 
   noStroke();
   drawingContext.shadowBlur = 100;
@@ -120,7 +138,7 @@ function Menu1() {
   drawingContext.shadowColor = 0;
   fill(26, 26, 26, 140);
   rect(mouseX - 75, mouseY - 75, 150, 150, 100)
-  
+
 
   drawingContext.shadowBlur = 0;
   drawingContext.shadowColor = 0;
@@ -132,12 +150,9 @@ function Menu1() {
   // ------------------------ Música do Jogo ----------------------------------
 
   audio.autoplay(true);
-  if (som == 0) {
-    audio.stop;
-  } else {
-    audio.play();
-  }
+  audio.play();
 
+  // ----------------------- Titulo ---------------------
 
   textAlign(CENTER);
   drawingContext.shadowBlur = 32;
@@ -234,30 +249,6 @@ function Menu1() {
     text("Créditos", (windowWidth / 2), (windowHeight / 2) + 117);
   }
 
-  /*
-  // ------------------------ Bt Configurações ----------------------------------
-
-  if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight / 2) + 180) - 35 && mouseY < (((windowHeight / 2) + 180) - 35) + 50){
-    fill(26,26,26,255);
-    stroke('rgba(218, 245, 8, 1)');
-    rect((windowWidth / 2) - 75, ((windowHeight / 2) + 180) - 35 , 150, 50, 5)
-
-    textSize(20);
-    fill('rgba(218, 245, 8, 1)');
-    noStroke();
-    text("Configurações", (windowWidth / 2), (windowHeight / 2) + 177);
-
-  }else{
-    fill(26,26,26,255);
-    noStroke;
-    rect((windowWidth / 2) - 75, ((windowHeight / 2) + 180) - 35 , 150, 50, 5)
-
-    textSize(20);
-    fill(240);
-    noStroke();
-    text("Configurações", (windowWidth / 2), (windowHeight / 2) + 177);
-  }
-  */
 
   textSize(12);
   fill(240);
@@ -285,7 +276,7 @@ function mouseClicked() {
   if (tela == 1) {
     // ------------------------ Bt Jogar ----------------------------------
     if (mouseX > (windowWidth / 2) - (largura / 2) && mouseX < ((windowWidth / 2) - (largura / 2)) + 150 && mouseY > (windowHeight / 2) - 35 && mouseY < ((windowHeight / 2) - 35) + 50) {
-      tela = -2;
+      tela = 2;
     }
     // ------------------------ Bt Instruções ----------------------------------
     if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight / 2) + 60) - 35 && mouseY < (((windowHeight / 2) + 60) - 35) + 50) {
@@ -301,32 +292,243 @@ function mouseClicked() {
     }
   }
 
+  //------------------------------ Tela Jogo ------------
+
   if (tela == 2) {
     // ------------------------ Bt Voltar ----------------------------------
     if (mouseX > windowWidth / 15 && mouseX < (windowWidth / 15) + 50 && mouseY > windowHeight / 15 && mouseY < (windowHeight / 15) + 50) {
+      fase = 0;
+      vida = 3;
+      tela = 1;
+    }
+
+    if (fase == 0) {
+      if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight + 500) / 2) - 35 && mouseY < (((windowHeight + 500) / 2) - 35) + 50) {
+        fase = 1;
+      }
+    }
+
+    // ------------------------------ Fases --------------------------
+
+    if (fase == 1) {
+      // --------------------- Restosta 1 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 31;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+    } else if (fase == 2) {
+      // --------------------- Restosta 1 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 31;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+    } else if (fase == 3) {
+      // --------------------- Restosta 1 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 31;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+    } else if (fase == 4) {
+      // --------------------- Restosta 1 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 31;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+    } else if (fase == 5) {
+      // --------------------- Restosta 1 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 31;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+    } else if (fase == 6) {
+      // --------------------- Restosta 1 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 2 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) - 150 - 90 && mouseX < ((windowWidth / 2) - 150) - 90 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+
+      // --------------------- Restosta 3 (COR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < ((windowWidth / 2) + 150) - 120 + 200 && mouseY > (windowHeight / 2) + 50 && mouseY < ((windowHeight / 2) + 50) + 60) {
+        tela = 100;
+      }
+
+      // --------------------- Restosta 4 (ERR) ------------------------
+
+      if (mouseX > (windowWidth / 2) + 150 - 120 && mouseX < (windowWidth / 2) + 150 - 120 + 200 && mouseY > (windowHeight / 2) + 150 && mouseY < ((windowHeight / 2) + 150 + 60)) {
+        vida = vida - 1;
+        tela = 3;
+      }
+    }
+
+  }
+
+  if (tela == 3) {
+
+    if (mouseX > windowWidth / 15 && mouseX < (windowWidth / 15) + 50 && mouseY > windowHeight / 15 && mouseY < (windowHeight / 15) + 50) {
+      fase = 0;
+      vida = 3;
+      tela = 1;
+    }
+
+    if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight + 500) / 2) - 35 && mouseY < (((windowHeight + 500) / 2) - 35) + 50) {
+      if (vida > 0) {
+        fase = fase + 1;
+        tela = 2;
+      } else {
+        tela = 101;
+      }
+    }
+  }
+
+  if (tela == 31) {
+
+    if (mouseX > windowWidth / 15 && mouseX < (windowWidth / 15) + 50 && mouseY > windowHeight / 15 && mouseY < (windowHeight / 15) + 50) {
+      fase = 0;
+      vida = 3;
+      tela = 1;
+    }
+
+    if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight + 500) / 2) - 35 && mouseY < (((windowHeight + 500) / 2) - 35) + 50) {
+      if (vida > 0) {
+        fase = fase + 1;
+        tela = 2;
+      } else {
+        tela = 101;
+      }
+    }
+  }
+
+  if (tela == 100) {
+
+    if (mouseX > windowWidth / 15 && mouseX < (windowWidth / 15) + 50 && mouseY > windowHeight / 15 && mouseY < (windowHeight / 15) + 50) {
+      fase = 0;
+      vida = 3;
       tela = 1;
     }
   }
 
-  if (tela == 3) {
-    // ------------------------ Bt Voltar ----------------------------------
+  if (tela == 101) {
+
     if (mouseX > windowWidth / 15 && mouseX < (windowWidth / 15) + 50 && mouseY > windowHeight / 15 && mouseY < (windowHeight / 15) + 50) {
-      audio_click.play();
-      setTimeout(tela1, delay);
+      fase = 0;
+      vida = 3;
+      tela = 1;
     }
-
-    if (mouseX > windowWidth / 2 && mouseX < (windowWidth / 2) + 50 && mouseY > windowHeight / 2 && mouseY < (windowHeight / 2) + 50) {
-      if (som == 0) {
-        audio.stop;
-        som == 1;
-        alert("Som desligado");
-      } else {
-        audio.play();
-        som == 0;
-        alert("Som ligado");
-      }
-    }
-
   }
 
   if (tela == 4) {
