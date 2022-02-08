@@ -488,7 +488,11 @@ function mouseClicked() {
     if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight + 500) / 2) - 35 && mouseY < (((windowHeight + 500) / 2) - 35) + 50) {
       if (vida > 0) {
         fase = fase + 1;
-        tela = 2;
+        if (fase == 7){
+          tela = 100;
+        }else{
+          tela = 2;
+        }
       } else {
         tela = 101;
       }

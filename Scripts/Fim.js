@@ -46,15 +46,4 @@ function Fim() {
   textSize(60);
   text("(*°▽°*)\nParabéns! Você é um grande Cientista!", windowWidth / 2, windowHeight / 2);
 
-
-  if (mouseX > (windowWidth / 2) - 75 && mouseX < ((windowWidth / 2) - 75) + 150 && mouseY > ((windowHeight + 500) / 2) - 35 && mouseY < (((windowHeight + 500) / 2) - 35) + 50) {
-    noFill();
-    stroke(200);
-    rect((windowWidth / 2) - 75, ((windowHeight + 500) / 2) - 35, 150, 50, 5);
-  } else {
-    noFill();
-    noStroke;
-    rect((windowWidth / 2) - 75, ((windowHeight + 500) / 2) - 35, 150, 50, 5)
-  }
-
 }
