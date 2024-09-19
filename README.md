@@ -20,4 +20,3 @@ Links do jogo
 -
 [Link 1 (GitHub)](https://educhior.github.io/LoP---Scince-Line/)
 
-[Link 2 (Replit)](https://LoP-Scince-Line.educhior.repl.co)
